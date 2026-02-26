@@ -6,12 +6,21 @@ import java.util.stream.Collectors;
 
 public class LibraryApp {
 
-	private boolean adminLoggedInAtm = false; 
+	private boolean adminLoggedInAtm = false; // Er admin logget ind?
+	private List<Book> books = new ArrayList<>(); // Liste med alle bøger
 
 	public void addBook(Book book) throws OperationNotAllowedException {
+		books.add(book);
 	}
 
 	public boolean containsBookWithSignature(String signature) {
+
+		for (Book book : books) {
+			if (book.getSignature().equals(signature)){ // Tjekker om signatur passer
+				return true;
+			}
+
+		}
 		return false;
 	}
 
@@ -27,6 +36,10 @@ public class LibraryApp {
 		}
 
 		return false;
+	}
+
+	public void adminLogout() {
+		adminLoggedInAtm = false;
 	}
 
 }

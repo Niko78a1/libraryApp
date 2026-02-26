@@ -40,17 +40,17 @@ public class BookSteps {
 		this.errorMessageHolder = errorMessageHolder;
 	}
 
-//	@Given("there is a book with title {string}, author {string}, and signature {string}")
-//	public void thereIsABookWithTitleAuthorAndSignature(String title, String author, String signature) throws Exception {
-//		book = new Book(title,author,signature);
-//	}
-//
-//	@Given("the book is not in the library")
-//	public void theBookIsNotInTheLibrary() {
-//		assertFalse(libraryApp.containsBookWithSignature(book.getSignature()));
-//	}
-//	
-//
+	@Given("there is a book with title {string}, author {string}, and signature {string}")
+	public void thereIsABookWithTitleAuthorAndSignature(String title, String author, String signature) throws Exception {
+		book = new Book(title,author,signature);
+	}
+
+	@Given("the book is not in the library")
+	public void theBookIsNotInTheLibrary() {
+		assertFalse(libraryApp.containsBookWithSignature(book.getSignature()));
+	}
+	
+
 //	@Given("these books are contained in the library")
 //	public void theseBooksAreContainedInTheLibrary(List<List<String>> books) throws Exception {
 //		for (List<String> bookInfo : books) {

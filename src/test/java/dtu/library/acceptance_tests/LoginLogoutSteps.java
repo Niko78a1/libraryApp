@@ -62,17 +62,17 @@ public class LoginLogoutSteps {
 		assertFalse(libraryApp.adminLoggedIn());
 	}
 
-//	@Then("the administrator logs in successfully")
-//	public void theAdministratorLoginsSuccessfully() throws Exception {
-//	}
-//
-//	@Given("that the administrator is logged in")
-//	public void thatTheAdministratorIsLoggedIn() throws Exception {
-//		assertTrue(libraryApp.adminLogin("adminadmin"));
-//	}
-//
-//	@When("the administrator logs out")
-//	public void theAdministratorLogsOut() throws Exception {
-//		libraryApp.adminLogout();
-//	}
+	@Then("the administrator logs in successfully")
+	public void theAdministratorLoginsSuccessfully() throws Exception {
+	}
+
+	@Given("that the administrator is logged in")
+	public void thatTheAdministratorIsLoggedIn() throws Exception {
+		assertTrue(libraryApp.adminLogin("adminadmin"));
+	}
+
+	@When("the administrator logs out")
+	public void theAdministratorLogsOut() throws Exception {
+		libraryApp.adminLogout();
+	}
 }
