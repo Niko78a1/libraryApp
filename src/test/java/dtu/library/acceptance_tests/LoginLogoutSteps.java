@@ -52,16 +52,16 @@ public class LoginLogoutSteps {
 		assertTrue(libraryApp.adminLoggedIn());
 	}
 
-//	@Then("the administrator login fails")
-//	public void theAdministratorLoginFails() throws Exception {
-//		assertFalse(libraryApp.adminLogin(password));
-//	}
-//
-//	@Then("the administrator is not logged in")
-//	public void theAdministratorIsNotLoggedIn() throws Exception {
-//		assertFalse(libraryApp.adminLoggedIn());
-//	}
-//
+	@Then("the administrator login fails")
+	public void theAdministratorLoginFails() throws Exception {
+		assertFalse(libraryApp.adminLogin(password));
+	}
+
+	@Then("the administrator is not logged in")
+	public void theAdministratorIsNotLoggedIn() throws Exception {
+		assertFalse(libraryApp.adminLoggedIn());
+	}
+
 //	@Then("the administrator logs in successfully")
 //	public void theAdministratorLoginsSuccessfully() throws Exception {
 //	}
