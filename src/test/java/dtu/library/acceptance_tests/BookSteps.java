@@ -51,13 +51,13 @@ public class BookSteps {
 	}
 	
 
-//	@Given("these books are contained in the library")
-//	public void theseBooksAreContainedInTheLibrary(List<List<String>> books) throws Exception {
-//		for (List<String> bookInfo : books) {
-//			libraryApp.addBook(new Book(bookInfo.get(0), bookInfo.get(1), bookInfo.get(2)));
-//		}
-//	}
-//	
+	@Given("these books are contained in the library")
+	public void theseBooksAreContainedInTheLibrary(List<List<String>> books) throws Exception {
+		for (List<String> bookInfo : books) {
+			libraryApp.addBook(new Book(bookInfo.get(0), bookInfo.get(1), bookInfo.get(2)));
+		}
+	}
+	
 	@When("the book is added to the library")
 	public void bookIsAddedToTheLibrary() {
 		try {
@@ -84,30 +84,30 @@ public class BookSteps {
 //		Book book = new Book(title, author, signature);
 //		libraryApp.addBook(book);
 //	}
-//
-//	@When("the user searches for the text {string}")
-//	public void theUserSearchesForTheText(String searchText) throws Exception {
-//		books = libraryApp.search(searchText);
-//	}
-//
-//	@Then("the book with signature {string} is found")
-//	public void theBookWithSignatureIsFound(String signature) throws Exception {
-//		assertEquals(1, books.size());
-//		assertEquals(signature, books.get(0).getSignature());
-//	}
-//
-//	@Then("no books are found")
-//	public void noBooksAreFound() throws Exception {
-//		assertTrue(books.isEmpty());
-//	}
-//
-//	@Then("the books with signatures {string} and {string} are found")
-//	public void theBooksWithSignaturesAndAreFound(String signature1, String signature2) throws Exception {
-//		assertEquals(2, books.size());
-//		Book book1 = books.get(0);
-//		Book book2 = books.get(1);
-//		assertTrue((book1.getSignature().equals(signature1) && book2.getSignature().equals(signature2))
-//				|| (book1.getSignature().equals(signature2) && book2.getSignature().equals(signature1)));
-//	}
+
+ 	@When("the user searches for the text {string}")
+	public void theUserSearchesForTheText(String searchText) throws Exception {
+		books = libraryApp.search(searchText);
+	}
+
+	@Then("the book with signature {string} is found")
+	public void theBookWithSignatureIsFound(String signature) throws Exception {
+		assertEquals(1, books.size());
+		assertEquals(signature, books.get(0).getSignature());
+	}
+
+	@Then("no books are found")
+	public void noBooksAreFound() throws Exception {
+		assertTrue(books.isEmpty());
+	}
+
+	@Then("the books with signatures {string} and {string} are found")
+	public void theBooksWithSignaturesAndAreFound(String signature1, String signature2) throws Exception {
+		assertEquals(2, books.size());
+		Book book1 = books.get(0);
+		Book book2 = books.get(1);
+		assertTrue((book1.getSignature().equals(signature1) && book2.getSignature().equals(signature2))
+				|| (book1.getSignature().equals(signature2) && book2.getSignature().equals(signature1)));
+	}
 
 }

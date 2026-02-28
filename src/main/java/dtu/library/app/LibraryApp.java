@@ -49,4 +49,16 @@ public class LibraryApp {
 		adminLoggedInAtm = false;
 	}
 
+	public List<Book> search(String searchText) {
+		List<Book> foundBooks = new ArrayList<>(); // Liste med fundne bøger
+		
+		for(Book book : books){
+			if(book.getSignature().contains(searchText) || book.getAuthor().contains(searchText) || book.getTitle().contains(searchText)){
+				foundBooks.add(book);
+			}
+		}
+
+		return foundBooks;
+	}
+
 }

@@ -20,8 +20,19 @@ public class Book {
         this.signature = signature;
     }
 
+    // Getter for signatur
     public String getSignature() {
         return signature;
+    }
+
+    // Getter for titel
+    public String getTitle() {
+        return title;
+    }
+
+    // Getter for author
+    public String getAuthor() {
+        return author;
     }
 
 }
