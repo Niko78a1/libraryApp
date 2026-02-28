@@ -58,26 +58,26 @@ public class BookSteps {
 //		}
 //	}
 //	
-//	@When("the book is added to the library")
-//	public void bookIsAddedToTheLibrary() {
-//		try {
-//			libraryApp.addBook(book);
-//		} catch (OperationNotAllowedException e) {
-//			errorMessageHolder.setErrorMessage(e.getMessage());
-//		}
-//	}
-//
-//	@Then("the book with title {string}, author {string}, and signature {string} is contained in the library")
-//	public void theBookWithTitleAuthorAndSignatureIsContainedInTheLibrary(String title, String author, String signature)
-//			throws Exception {
-//		assertTrue(libraryApp.containsBookWithSignature(signature));
-//	}
-//
-//	@Then("the error message {string} is given")
-//	public void theErrorMessageIsGiven(String errorMessage) throws Exception {
-//		assertEquals(errorMessage, this.errorMessageHolder.getErrorMessage());
-//	}
-//
+	@When("the book is added to the library")
+	public void bookIsAddedToTheLibrary() {
+		try {
+			libraryApp.addBook(book);
+		} catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+
+	@Then("the book with title {string}, author {string}, and signature {string} is contained in the library")
+	public void theBookWithTitleAuthorAndSignatureIsContainedInTheLibrary(String title, String author, String signature)
+			throws Exception {
+		assertTrue(libraryApp.containsBookWithSignature(signature));
+	}
+
+	@Then("the error message {string} is given")
+	public void theErrorMessageIsGiven(String errorMessage) throws Exception {
+		assertEquals(errorMessage, this.errorMessageHolder.getErrorMessage());
+	}
+
 //	@Given("the library has a book with title {string}, author {string}, and signature {string}")
 //	public void theLibraryHasABookWithTitleAuthorAndSignature(String title, String author, String signature)
 //			throws Exception {

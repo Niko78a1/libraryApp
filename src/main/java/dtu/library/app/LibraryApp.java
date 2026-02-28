@@ -10,6 +10,13 @@ public class LibraryApp {
 	private List<Book> books = new ArrayList<>(); // Liste med alle bøger
 
 	public void addBook(Book book) throws OperationNotAllowedException {
+		// 1. Tjek om Admin er logget ind
+		if(!adminLoggedInAtm){
+			// 2. Hvis admin ikke er logget ind smiddet vi en Exception m. fejlbesked
+			throw new OperationNotAllowedException("Administrator login required");
+		}
+
+		// 3. Hvis Admin er logget ind tilføjer vi bogen
 		books.add(book);
 	}
 

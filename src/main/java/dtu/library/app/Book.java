@@ -13,7 +13,7 @@ public class Book {
     private String author;
     private String signature;
 
-    // Konstruktor
+    // Konstruktør
     public Book(String title, String author, String signature){
         this.title = title;
         this.author = author;
