@@ -8,6 +8,7 @@ public class LibraryApp {
 
 	private boolean adminLoggedInAtm = false; // Er admin logget ind?
 	private List<Book> books = new ArrayList<>(); // Liste med alle bøger
+	private List<User> users = new ArrayList<>(); // Liste med alle registrerede brugere
 
 	public void addBook(Book book) throws OperationNotAllowedException {
 		// 1. Tjek om Admin er logget ind
@@ -59,6 +60,14 @@ public class LibraryApp {
 		}
 
 		return foundBooks;
+	}
+
+	public void registerUser(User user) {
+		users.add(user);
+	}
+
+	public boolean isUser(User user) {
+		return users.contains(user);
 	}
 
 }
