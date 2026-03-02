@@ -21,7 +21,11 @@ public class ReturnBookSteps {
     
     @When("the user with CPR {string} returns the book with the signature {string}")
         public void theUserWithCPRReturnsTheBookWithTheSignature(String cpr, String signature) {
-        library.returnBook(cpr, signature);
+        try {
+            library.returnBook(cpr, signature);
+        } catch (OperationNotAllowedException e){
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
     }
 
     @Then("the book with signature {string} is no longer borrowed by the user with CPR {string}")

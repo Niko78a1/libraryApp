@@ -147,9 +147,15 @@ public class LibraryApp {
 		borrower.borrowNewBook(bookToBorrow);
     }
 
-	public void returnBook(String cpr, String signature) {
+	public void returnBook(String cpr, String signature) throws OperationNotAllowedException {
 		User borrower = null; 
 		Book bookToReturn = null;
+
+		for (Book b : books) {
+			if(b.getSignature().equals(signature)) {
+				throw new OperationNotAllowedException("This book does not belong to the library");
+			}
+		}
 
 		// 1. find bruger
 		for (User u : users) {
