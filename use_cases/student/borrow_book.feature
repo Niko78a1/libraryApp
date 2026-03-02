@@ -41,3 +41,28 @@ Scenario: A registered user tries to borrow a book that does not exist in the li
 
     # 3. Verifikation:
     Then the error message "The book that the user is trying to borrow does not exist" is given
+
+Scenario: A registered user has borrowed 10 books and tries to borrow one additional book
+    # 1. Setup:
+    Given that the administrator is logged in
+    And there is a book with title "Extreme Programming", author "Kent Beck", and signature "Beck99"
+    And the book is added to the library
+    And there is a user with CPR "260699-1307", name "Nikolai K. Skarum", e-mail "nikolai.kurt.skarum@gmail.com"
+    And the user is registered with the library
+    And the user with CPR "260699-1307" has borrowed these books
+		| Test Driven Development | Kent Beck | Beck02 |
+		| Lean Software Development | Mary Poppendieck and Tom Poppendieck | Pop07 |
+		| Cucumber for Java | Seb Rose | Rose11 |
+        | four | Kent four | Beck4 |
+        | five | Kent five | Beck5 |
+        | six | Kent six | Beck6 |
+        | seven | Kent seven | Beck7 |
+        | eight | Kent eight | Beck8 |
+        | nine | Kent nine | Beck9 |
+        | ten | Kent ten | Beck10 |
+
+    # 2. Handling:
+    When the user with CPR "260699-1307" borrows the book with the signature "Beck99"
+
+    # 3. Verifikation:
+    Then the error message "The user has reached the maximum number of borrowed items (10)" is given

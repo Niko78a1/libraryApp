@@ -138,7 +138,12 @@ public class LibraryApp {
 			throw new OperationNotAllowedException("The book that the user is trying to borrow does not exist");
 		}
 
-		// 5. Udfør lånet
+		// 5. Tjek om brugeren allerede har lånt 10 (eller flere) bøger
+		if (borrower.getBorrowedBooks().size() >= 10) {
+			throw new OperationNotAllowedException("The user has reached the maximum number of borrowed items (10)");
+		}
+
+		// 6. Udfør lånet
 		borrower.borrowNewBook(bookToBorrow);
     }
 
