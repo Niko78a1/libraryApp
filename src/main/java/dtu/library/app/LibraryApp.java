@@ -133,7 +133,12 @@ public class LibraryApp {
 			}
 		}
 
-		// 4. Udfør lånet
+		// 4. Tjek om bogen blev fundet, hvis ikke, kast fel
+		if (bookToBorrow == null) {
+			throw new OperationNotAllowedException("The book that the user is trying to borrow does not exist");
+		}
+
+		// 5. Udfør lånet
 		borrower.borrowNewBook(bookToBorrow);
     }
 
