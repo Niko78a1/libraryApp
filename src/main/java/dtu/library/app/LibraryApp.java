@@ -69,6 +69,12 @@ public class LibraryApp {
 			throw new OperationNotAllowedException("Administrator login required");
 		}
 
+		// 1. Tjek om brugeren allerede findes på listen
+		if(users.contains(user)){
+			// 2. Hvis bruger findes i forvejen, smid exception
+			throw new OperationNotAllowedException("User is already registered");
+		}
+
 		users.add(user);
 	}
 

@@ -14,10 +14,12 @@ public class UserSteps {
 
     private LibraryApp libraryApp;
     private User user; 
+    private ErrorMessageHolder errorMessageHolder;
 
     // Konstruktør m. injection
-    public UserSteps(LibraryApp libraryApp) {
+    public UserSteps(LibraryApp libraryApp, ErrorMessageHolder errorMessageHolder) {
 		this.libraryApp = libraryApp;
+        this.errorMessageHolder = errorMessageHolder;
 	}
 
     @Given("there is a user with CPR {string}, name {string}, e-mail {string}")
@@ -33,13 +35,22 @@ public class UserSteps {
     }
 
     @When("the administrator registers the user")
-    public void theAdministratorRegistersTheUser() throws OperationNotAllowedException {
-        libraryApp.registerUser(this.user);
+    public void theAdministratorRegistersTheUser() {
+        try {
+            libraryApp.registerUser(this.user);
+        } catch (OperationNotAllowedException e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
     }
 
     @Then("the user is a registered user of the library")
     public void theUserIsARegisteredUserOfTheLibrary() {
         assertTrue(libraryApp.isUser(this.user));
+    }
+
+    @Given("the user is registered with the library")
+    public void theUserIsRegisteredWithTheLibrary() throws OperationNotAllowedException {
+        libraryApp.registerUser(this.user);
     }
     
 }
