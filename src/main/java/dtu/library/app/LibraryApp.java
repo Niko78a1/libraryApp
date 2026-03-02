@@ -147,4 +147,43 @@ public class LibraryApp {
 		borrower.borrowNewBook(bookToBorrow);
     }
 
+	public void returnBook(String cpr, String signature) {
+		User borrower = null; 
+		Book bookToReturn = null;
+
+		// 1. find bruger
+		for (User u : users) {
+			if (u.getCpr().equals(cpr)) { // Hvis vi finder brugeren
+				borrower = u; // Gem brugeren som låner
+				u.returnBook(signature);
+				break; // Ingen grund til at lede videre
+			}
+		}
+	}
+
+    public boolean isBorrowed(String cpr, String signature) {
+		User user = null;
+		List<Book> borrowedBooks = new ArrayList<>();
+
+        // 1. find bruger
+		for (User u : users) {
+			if (u.getCpr().equals(cpr)) {
+				user = u;
+				borrowedBooks = u.getBorrowedBooks(); // 2. Få liste over bøger
+				break;
+			}
+		}
+
+		// 3. gå liste igennem for at se om bog findes
+		for (Book b : borrowedBooks) {
+			if(b.getSignature().equals(signature)) {
+				return true;
+			}
+		}
+
+		// 4. Hvis bogen ikke findes returner false
+		return false;
+
+    }
+
 }

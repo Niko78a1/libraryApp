@@ -57,4 +57,21 @@ public class User {
     public List<Book> getBorrowedBooks() {
         return borrowedBooks;
     }
+
+    public void returnBook(String signature) {
+        Book bookToReturn = null;
+
+        // 1. Find bogen i listen af lånte bøger
+        for (Book b : borrowedBooks) {
+            if (b.getSignature().equals(signature)) {
+                bookToReturn = b;
+                break; // Stop loopet, vi har fundet bogen
+            }
+        }
+
+        // 2. slet bogen, hvis vi fandt den
+        if (bookToReturn != null) {
+            borrowedBooks.remove(bookToReturn);
+        }
+    }
 }
