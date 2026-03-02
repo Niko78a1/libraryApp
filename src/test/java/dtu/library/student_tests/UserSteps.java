@@ -2,6 +2,7 @@ package dtu.library.student_tests;
 
 import dtu.library.acceptance_tests.ErrorMessageHolder;
 import dtu.library.app.LibraryApp;
+import dtu.library.app.OperationNotAllowedException;
 import dtu.library.app.User;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -32,7 +33,7 @@ public class UserSteps {
     }
 
     @When("the administrator registers the user")
-    public void theAdministratorRegistersTheUser() {
+    public void theAdministratorRegistersTheUser() throws OperationNotAllowedException {
         libraryApp.registerUser(this.user);
     }
 

@@ -62,7 +62,13 @@ public class LibraryApp {
 		return foundBooks;
 	}
 
-	public void registerUser(User user) {
+	public void registerUser(User user)  throws OperationNotAllowedException {
+		// 1. Tjek om admin er logget ind
+		if(!adminLoggedInAtm){
+			// 2. Hvis admin ikke er logget ind smider vi en error
+			throw new OperationNotAllowedException("Administrator login required");
+		}
+
 		users.add(user);
 	}
 
