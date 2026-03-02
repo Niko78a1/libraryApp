@@ -75,6 +75,15 @@ public class LibraryApp {
 			throw new OperationNotAllowedException("User is already registered");
 		}
 
+		// 1. Løber hele listen af brugere igennem
+		for(User u : users){
+			// 2. Tjek om cpr nummer er det samme?
+			if(u.getCpr().equals(user.getCpr())){
+				// 3. Smid fejl hvis CPR nummer eksistere hos anden bruger
+				throw new OperationNotAllowedException("User with the same cpr-number is already registered");
+			}
+		}
+
 		users.add(user);
 	}
 

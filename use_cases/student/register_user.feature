@@ -22,3 +22,11 @@ Scenario: Register a user that is already registered
 	And the user is registered with the library
 	When the administrator registers the user
 	Then the error message "User is already registered" is given
+
+Scenario: Register a user with the same CPR number as an existing user
+	Given that the administrator is logged in
+	And there is a user with CPR "260699-1307", name "Nikolai K. Skarum", e-mail "nikolai.kurt.skarum@gmail.com"
+	And the user is registered with the library
+	And there is a user with CPR "260699-1307", name "Nikolai Fake Skarum", e-mail "nikolai.fake.skarum@gmail.com"
+	When the administrator registers the user
+	Then the error message "User with the same cpr-number is already registered" is given
