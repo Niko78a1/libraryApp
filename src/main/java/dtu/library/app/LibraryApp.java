@@ -150,11 +150,18 @@ public class LibraryApp {
 	public void returnBook(String cpr, String signature) throws OperationNotAllowedException {
 		User borrower = null; 
 		Book bookToReturn = null;
+		boolean bookBelongsToLibrary = false;
 
 		for (Book b : books) {
 			if(b.getSignature().equals(signature)) {
-				throw new OperationNotAllowedException("This book does not belong to the library");
+				bookBelongsToLibrary = true;
+				break; // Vi har fundet bogen, stop loopet
 			}
+		}
+
+		// 2. Hvis vi har ledt alle bøger igennem, og den stadig er false
+		if (!bookBelongsToLibrary) {
+			throw new OperationNotAllowedException("This book does not belong to the library");
 		}
 
 		// 1. find bruger
