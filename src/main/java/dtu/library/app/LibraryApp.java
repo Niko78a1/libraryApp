@@ -75,6 +75,7 @@ public class LibraryApp {
 			throw new OperationNotAllowedException("User is already registered");
 		}
 
+
 		// 1. Løber hele listen af brugere igennem
 		for(User u : users){
 			// 2. Tjek om cpr nummer er det samme?
@@ -90,5 +91,50 @@ public class LibraryApp {
 	public boolean isUser(User user) {
 		return users.contains(user);
 	}
+
+	public boolean hasBorrowed(String cpr, String signature) {
+		for(User u : users) {
+			if(u.getCpr().equals(cpr)) {
+				List<Book> borrowedBooks = u.getBorrowedBooks();
+
+				for(Book b : borrowedBooks) {
+					if(b.getSignature().equals(signature)) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+    public void borrowBook(String cpr, String signature) throws OperationNotAllowedException{
+		User borrower = null;
+		Book bookToBorrow = null;
+
+		// 1. Find brugeren
+        for(User u : users) {
+			if(u.getCpr().equals(cpr)) {
+				borrower = u;
+				break; // Vi har fundet brugeren, ingen grund til at lede videre
+			}
+		}
+
+		// 2. Tjek om brugeren blev fundet - hvis ikke, kast fejl
+		if (borrower == null) {
+			throw new OperationNotAllowedException("User is not registered in the library");
+		}
+
+		// 3. Find bogen
+		for (Book book : books) {
+			if(book.getSignature().equals(signature)) {
+				bookToBorrow = book;
+				break; // ingen grund til at lede videre efter bog er fundet
+			}
+		}
+
+		// 4. Udfør lånet
+		borrower.borrowNewBook(bookToBorrow);
+    }
 
 }

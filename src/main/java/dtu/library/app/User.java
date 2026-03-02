@@ -1,5 +1,8 @@
 package dtu.library.app;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private String cpr;
     private String name;
@@ -7,6 +10,7 @@ public class User {
     private String address;
     private Integer postcode;
     private String city;
+    private List<Book> borrowedBooks = new ArrayList<>(); // Liste med lånte bøger
 
 
     // Konstruktør
@@ -44,5 +48,13 @@ public class User {
     // Setter for by
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public void borrowNewBook(Book book) {
+        borrowedBooks.add(book);
+    }
+
+    public List<Book> getBorrowedBooks() {
+        return borrowedBooks;
     }
 }
