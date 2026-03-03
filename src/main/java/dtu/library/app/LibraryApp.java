@@ -168,9 +168,16 @@ public class LibraryApp {
 		for (User u : users) {
 			if (u.getCpr().equals(cpr)) { // Hvis vi finder brugeren
 				borrower = u; // Gem brugeren som låner
-				u.returnBook(signature);
+				if (!isBorrowed(cpr, signature)) { // Tjekker om brugeren faktisk har lånt bogen...
+					throw new OperationNotAllowedException("Book is not borrowed by user");
+				}
+				borrower.returnBook(signature);
 				break; // Ingen grund til at lede videre
 			}
+		}
+
+		if (borrower == null) {
+			throw new OperationNotAllowedException("User is not registered in the library");
 		}
 	}
 
