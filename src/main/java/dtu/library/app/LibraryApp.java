@@ -4,11 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class LibraryApp {
 
 	private boolean adminLoggedInAtm = false; // Er admin logget ind?
 	private List<Book> books = new ArrayList<>(); // Liste med alle bøger
 	private List<User> users = new ArrayList<>(); // Liste med alle registrerede brugere
+	private DateServer dateServer = new DateServer(); // dateServer objekt der giver os vores ur eller falske ur
+
+	// Setter for vores dateServer objekt, så vi kan bytte det rigtige ur ud med det falske ur under test
+	public void setDateServer(DateServer dateServer) {
+		this.dateServer = dateServer;
+	}
 
 	public void addBook(Book book) throws OperationNotAllowedException {
 		// 1. Tjek om Admin er logget ind
@@ -204,6 +211,14 @@ public class LibraryApp {
 		// 4. Hvis bogen ikke findes returner false
 		return false;
 
+    }
+
+	public boolean hasOverdueBooks(String cpr) {
+		return false;
+	}
+
+    public Object getFine(String cpr) {
+        return 0; 
     }
 
 }
