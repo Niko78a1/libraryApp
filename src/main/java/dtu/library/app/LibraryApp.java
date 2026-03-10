@@ -12,7 +12,12 @@ public class LibraryApp {
 	private List<Book> books = new ArrayList<>(); // Liste med alle bøger
 	private List<User> users = new ArrayList<>(); // Liste med alle registrerede brugere
 	private DateServer dateServer = new DateServer(); // dateServer objekt der giver os vores ur eller falske ur
+	private EmailServer emailServer;
 
+	// Setter for vores emailServer objekt, så vi kan lave udbytning af hvilken email-server
+	public void setEmailServer(EmailServer emailServer) {
+		this.emailServer = emailServer;
+	}
 	// Setter for vores dateServer objekt, så vi kan bytte det rigtige ur ud med det falske ur under test
 	public void setDateServer(DateServer dateServer) {
 		this.dateServer = dateServer;
@@ -274,5 +279,51 @@ public class LibraryApp {
 		}
 		return totalFine; 
     }
+	public void sendReminderToUsersOverdue() {
+		Calendar today = dateServer.getDate();
+
+		// 1. gå igennem alle registrerede brugere
+		for (User user : users) {
+			int overdueCount = 0;
+
+			// 2. tæl hvor mange af brugerens bøger der er forfaldne
+			for (Book book : user.getBorrowedBooks()) {
+				Calendar borrowDate = user.getBorrowDate(book);
+				if (borrowDate != null) {
+					Calendar dueDate = (Calendar) borrowDate.clone();
+					dueDate.add(Calendar.DAY_OF_YEAR, 28); // Låneperiode på 28 dage
+
+					if (today.after(dueDate)) {
+						overdueCount++;
+					}
+				}
+			}
+
+			// 3. Hvis brugeren har forfaldne bøger, send en mail via interfacet
+			if (overdueCount > 0 && emailServer != null) {
+				String userEmail = user.getEmail();
+				String subject = "Overdue book(s)";
+				String text = "You have " + overdueCount + " overdue book(s)";
+				emailServer.sendEmail(userEmail, subject, text);
+			}
+		}	
+	}
+
+	public User getUserByCpr(String cpr) throws OperationNotAllowedException {
+		User foundUser = null;
+
+		for (User user : users) {
+			if(user.getCpr().equals(cpr)) {
+				foundUser = user;
+				break; // ingen grund til at lede efter
+			}
+		}
+
+		if (foundUser == null) {
+			throw new OperationNotAllowedException("User is not registered in the library");
+		}
+
+		return foundUser;
+	}
 
 }
