@@ -2,6 +2,9 @@ package dtu.library.app;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
+import java.util.Map;
+import java.util.HashMap;
 
 public class User {
     private String cpr;
@@ -10,8 +13,8 @@ public class User {
     private String address;
     private Integer postcode;
     private String city;
-    private List<Book> borrowedBooks = new ArrayList<>(); // Liste med lånte bøger
-
+    // Gamle kode: private List<Book> borrowedBooks = new ArrayList<>(); // Liste med lånte bøger
+    private Map <Book, Calendar> borrowedBooks = new HashMap<>();
 
     // Konstruktør
     public User(String cpr, String name, String eMail) {
@@ -50,19 +53,23 @@ public class User {
         this.city = city;
     }
 
-    public void borrowNewBook(Book book) {
-        borrowedBooks.add(book);
+    public void borrowNewBook(Book book, Calendar date) {
+        borrowedBooks.put(book, date);
     }
 
     public List<Book> getBorrowedBooks() {
-        return borrowedBooks;
+        return new ArrayList<>(borrowedBooks.keySet());
+    }
+
+    public Calendar getBorrowDate(Book book) {
+        return borrowedBooks.get(book); // Henter datoen for et specifikt lån
     }
 
     public void returnBook(String signature) {
         Book bookToReturn = null;
 
         // 1. Find bogen i listen af lånte bøger
-        for (Book b : borrowedBooks) {
+        for (Book b : borrowedBooks.keySet()) {
             if (b.getSignature().equals(signature)) {
                 bookToReturn = b;
                 break; // Stop loopet, vi har fundet bogen

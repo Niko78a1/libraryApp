@@ -9,8 +9,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class OverdueSteps {
 
@@ -28,7 +28,7 @@ public class OverdueSteps {
 
     @Then("the user with CPR {string} has to pay a fine of {int} DKK")
         public void theUserWithCPRHasToPayAFineOfDKK(String cpr, Integer fineAmount) {
-        assertEquals(fineAmount, library.getFine(cpr));
+        assertEquals(fineAmount.intValue(), library.getFine(cpr));
     }
     
 }

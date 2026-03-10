@@ -3,6 +3,7 @@ package dtu.library.app;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Calendar;
 
 
 public class LibraryApp {
@@ -151,7 +152,7 @@ public class LibraryApp {
 		}
 
 		// 6. Udfør lånet
-		borrower.borrowNewBook(bookToBorrow);
+		borrower.borrowNewBook(bookToBorrow, dateServer.getDate());
     }
 
 	public void returnBook(String cpr, String signature) throws OperationNotAllowedException {
@@ -214,11 +215,64 @@ public class LibraryApp {
     }
 
 	public boolean hasOverdueBooks(String cpr) {
+		User user = null;
+
+		for (User u : users) {
+			if (u.getCpr().equals(cpr)) {
+				user = u;
+				break;
+			}
+		}
+
+		if (user == null) return false; // Hvis brugeren ikke eksistere kan det ikke lade sig gøre at have udlånte bøger
+
+		Calendar today = dateServer.getDate();
+		for (Book book : user.getBorrowedBooks()) {
+			Calendar borrowDate = user.getBorrowDate(book);
+
+			if (borrowDate != null) { // Så længe at borrowdate ikke er en tom værdi
+				Calendar dueDate = (Calendar) borrowDate.clone(); // Lav kopi af den dato bogen blev lånt
+				dueDate.add(Calendar.DAY_OF_YEAR, 28); // Lig 28 dage til denne kopi
+
+				if (today.after(dueDate)) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
-    public Object getFine(String cpr) {
-        return 0; 
+    public int getFine(String cpr) {
+        User user = null;
+
+		// Find brugeren
+		for (User u : users) {
+			if (u.getCpr().equals(cpr)) {
+				user = u;
+				break;
+			}
+		}
+
+		if (user == null) return 0; // når brugeren ikke kan findes --> skal laves som exception
+
+		int totalFine = 0;
+		Calendar today = dateServer.getDate(); // den nuværende dato
+
+		//  Gå alle brugerens bøger igennem
+		for (Book book : user.getBorrowedBooks()) {
+			Calendar borrowDate = user.getBorrowDate(book);
+
+			if (borrowDate != null) {
+				Calendar dueDate = (Calendar) borrowDate.clone(); // kopi af lånedato
+				dueDate.add(Calendar.DAY_OF_YEAR, 28); // lig 28 dage til lånedato
+
+				// Hvis vi er over 28 dages fristen ligger vi 100 kr til for denne bog
+				if (today.after(dueDate)) {
+					totalFine += 100;
+				}
+			}
+		}
+		return totalFine; 
     }
 
 }
